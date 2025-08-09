@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
+import Logo from './components/Logo';
+import Form from './components/Form';
+import List from './components/List';
+
+const initialTasks = [
+  {
+    id: 1,
+    text: 'Comprar cosas para la semana',
+    date: '2025-08-09T10:00:00.000Z',
+    completed: false,
+  },
+  {
+    id: 2,
+    text: 'Terminar el proyecto de React',
+    date: '2025-08-10T14:30:00.000Z',
+    completed: true,
+  },
+  {
+    id: 3,
+    text: 'Llamar al médico para cita',
+    date: '2025-08-11T09:00:00.000Z',
+    completed: false,
+  },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [tasks, setTasks] = useState(initialTasks);
+
+  function handleAddItem(newTask) {
+    setTasks(prevs => [...prevs, newTask]);
+  }
+
+  function handleDeleteItem(id) {
+    const newTasks = tasks.filter(task => task.id !== id);
+    setTasks(newTasks);
+  }
+
+  function handleEditItem(id) {}
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className='app'>
+      <Logo />
+
+      <main className='main'>
+        <Form onAddItem={handleAddItem} />
+        <List tasks={tasks} onDeleteItem={handleDeleteItem} />
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
