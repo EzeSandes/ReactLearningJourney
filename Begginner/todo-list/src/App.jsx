@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Logo from './components/Logo';
 import Form from './components/Form';
 import List from './components/List';
+import Modal from './components/Modal';
 
 const initialTasks = [
   {
@@ -27,25 +28,82 @@ const initialTasks = [
 
 function App() {
   const [tasks, setTasks] = useState(initialTasks);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingTask, setEditingTask] = useState(null);
 
-  function handleAddItem(newTask) {
-    setTasks(prevs => [...prevs, newTask]);
+  function handleAddItem({ text }) {
+    const newItem = {
+      id: Date.now(), // For tests only
+      text,
+      date: Date.now(),
+      completed: false,
+    };
+
+    setTasks(prevs => [...prevs, newItem]);
   }
 
   function handleDeleteItem(id) {
     const newTasks = tasks.filter(task => task.id !== id);
     setTasks(newTasks);
+    setIsModalOpen(false);
   }
 
-  function handleEditItem(id) {}
+  function handleOpenEditModal(task) {
+    setEditingTask(task);
+    setIsModalOpen(true);
+  }
+
+  function handleEditItem(id, { text }) {
+    const newTasks = tasks.map(task =>
+      task.id === id ? { ...task, text } : task
+    );
+    setTasks(newTasks);
+    setIsModalOpen(false);
+  }
+
+  function handleCloseModal() {
+    setIsModalOpen(false);
+    setEditingTask(null);
+  }
+
+  useEffect(
+    function () {
+      function callback(e) {
+        if (e.key === 'Escape') {
+          setEditingTask(null);
+          setIsModalOpen(false);
+        }
+      }
+
+      document.addEventListener('keydown', callback);
+
+      return () => document.removeEventListener('keydown', callback);
+    },
+    [setIsModalOpen]
+  );
 
   return (
     <div className='app'>
-      <Logo />
+      <header>
+        <Logo />
+      </header>
 
       <main className='main'>
-        <Form onAddItem={handleAddItem} />
-        <List tasks={tasks} onDeleteItem={handleDeleteItem} />
+        <Form onSubmit={handleAddItem} />
+        <List
+          tasks={tasks}
+          onDeleteItem={handleDeleteItem}
+          onEditItem={handleOpenEditModal}
+        />
+        {isModalOpen && (
+          <Modal onCloseModal={handleCloseModal}>
+            <Form
+              onSubmit={values => handleEditItem(editingTask.id, values)}
+              onCancel={handleCloseModal}
+              isEditing
+            />
+          </Modal>
+        )}
       </main>
     </div>
   );

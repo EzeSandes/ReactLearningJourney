@@ -1,23 +1,32 @@
 import React, { useState } from 'react';
 
-function Form({ onAddItem }) {
-  const [task, setTask] = useState('');
+function Form({
+  onSubmit,
+  initialValues = { text: '' },
+  isEditing = false,
+  onCancel,
+}) {
+  const [values, setValues] = useState(initialValues);
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (task === '') return;
+    if (values.text.trim() === '') return;
 
-    const newItem = {
-      id: Date.now(), // For tests only
-      text: task,
-      date: Date.now(),
-      completed: false,
-    };
+    onSubmit(values);
+    setValues({ text: '' });
+  }
 
-    console.log(newItem);
-    onAddItem(newItem);
-    setTask('');
+  function handleChange(e) {
+    const { name, value } = e.target;
+
+    setValues(prev => ({ ...prev, [name]: value }));
+  }
+
+  function handleCancel() {
+    setValues(initialValues);
+
+    if (onCancel) onCancel(); // Close the modal in edit mode.
   }
 
   return (
@@ -25,13 +34,20 @@ function Form({ onAddItem }) {
       <input
         className='form__input__text'
         type='text'
-        value={task}
-        onChange={e => setTask(e.target.value)}
-        placeholder='Write a task'
+        name='text'
+        value={values.text}
+        onChange={handleChange}
+        placeholder={isEditing ? 'Edit task...' : 'Write a task'}
       />
       <button type='submit' className='form__button'>
-        Add
+        {isEditing ? 'Save' : 'Add'}
       </button>
+
+      {isEditing && (
+        <button type='button' className='form__button' onClick={handleCancel}>
+          Cancel
+        </button>
+      )}
     </form>
   );
 }

@@ -1,7 +1,11 @@
 import React from 'react';
 
 function Logo() {
-  return <h1 className='title t--center'>Todo List App</h1>;
+  return (
+    <div className='logo'>
+      <h1 className='title t--center'>Todo List App</h1>
+    </div>
+  );
 }
 
 export default Logo;

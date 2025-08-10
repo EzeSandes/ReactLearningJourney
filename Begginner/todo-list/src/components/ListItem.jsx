@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function ListItem({ task, onDeleteItem }) {
+function ListItem({ task, onDeleteItem, onEditItem }) {
   const [isCompleted, setIsCompleted] = useState(false);
 
   return (
@@ -24,7 +24,12 @@ function ListItem({ task, onDeleteItem }) {
         </span>
       </div>
       <div className='list__item__actions'>
-        <button className='list__item__button list__item__edit'>Edit</button>
+        <button
+          className='list__item__button list__item__edit'
+          onClick={() => onEditItem(task)}
+        >
+          Edit
+        </button>
         <button
           className='list__item__button list__item__delete'
           onClick={() => onDeleteItem(task.id)}
