@@ -1,7 +1,7 @@
 import React from 'react';
 import ListItem from './ListItem';
 
-function List({ tasks, onDeleteItem, onEditItem }) {
+function List({ tasks, onDeleteItem, onEditItem, onCompleteTask }) {
   return (
     <div className='list_container'>
       <ul className='list'>
@@ -11,6 +11,7 @@ function List({ tasks, onDeleteItem, onEditItem }) {
             task={task}
             onDeleteItem={onDeleteItem}
             onEditItem={onEditItem}
+            onCompleteTask={onCompleteTask}
           />
         ))}
       </ul>

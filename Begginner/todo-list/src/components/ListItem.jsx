@@ -1,16 +1,14 @@
-import { useState } from 'react';
-
-function ListItem({ task, onDeleteItem, onEditItem }) {
-  const [isCompleted, setIsCompleted] = useState(false);
-
+function ListItem({ task, onDeleteItem, onEditItem, onCompleteTask }) {
   return (
-    <li className={`list__item ${isCompleted ? 'list__item--completed' : ''}`}>
+    <li
+      className={`list__item ${task.completed ? 'list__item--completed' : ''}`}
+    >
       <input
         type='checkbox'
         name='todo-done'
         className='list__item__checkbox'
-        value={isCompleted}
-        onChange={() => setIsCompleted(prev => !prev)}
+        checked={task.completed}
+        onChange={() => onCompleteTask(task.id)}
       />
       <div className='list__item__content'>
         <p className='list__item__text'>{task.text}</p>

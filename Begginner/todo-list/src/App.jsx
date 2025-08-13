@@ -61,6 +61,13 @@ function App() {
     setIsModalOpen(false);
   }
 
+  function handleCompleteTask(id) {
+    const updatedTasks = tasks.map(task =>
+      task.id === id ? { ...task, completed: !task.completed } : task
+    );
+    setTasks(updatedTasks);
+  }
+
   function handleCloseModal() {
     setIsModalOpen(false);
     setEditingTask(null);
@@ -94,6 +101,7 @@ function App() {
           tasks={tasks}
           onDeleteItem={handleDeleteItem}
           onEditItem={handleOpenEditModal}
+          onCompleteTask={handleCompleteTask}
         />
         {isModalOpen && (
           <Modal onCloseModal={handleCloseModal}>
