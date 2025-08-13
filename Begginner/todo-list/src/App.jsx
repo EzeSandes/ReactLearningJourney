@@ -27,7 +27,11 @@ const initialTasks = [
 ];
 
 function App() {
-  const [tasks, setTasks] = useState(initialTasks);
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem('tasks');
+
+    return savedTasks ? JSON.parse(savedTasks) : initialTasks;
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
 
@@ -72,6 +76,13 @@ function App() {
     setIsModalOpen(false);
     setEditingTask(null);
   }
+
+  useEffect(
+    function () {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    },
+    [tasks]
+  );
 
   useEffect(
     function () {
