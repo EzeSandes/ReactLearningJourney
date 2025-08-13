@@ -4,6 +4,7 @@ import Logo from './components/Logo';
 import Form from './components/Form';
 import List from './components/List';
 import Modal from './components/Modal';
+import Stats from './components/Stats';
 
 const initialTasks = [
   {
@@ -108,6 +109,7 @@ function App() {
 
       <main className='main'>
         <Form onSubmit={handleAddItem} />
+        <Stats tasks={tasks} />
         <List
           tasks={tasks}
           onDeleteItem={handleDeleteItem}
