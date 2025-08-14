@@ -5,7 +5,7 @@ function Stats({ tasks }) {
 
   return (
     <div className='stats'>
-      <p>
+      <p className='stats__pendings'>
         Pending {numOfPendingTasks} / {tasks.length}
       </p>
     </div>

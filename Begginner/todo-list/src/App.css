@@ -37,6 +37,9 @@ h1 {
 
 .main {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.2rem;
 }
 
 .form {
@@ -105,6 +108,10 @@ h1 {
   padding: 1rem;
 }
 
+.stats__pendings {
+  font-size: 1.6rem;
+}
+
 /* /////////////// Modal */
 
 .modal-overlay {
@@ -122,6 +129,7 @@ h1 {
   justify-content: center;
 }
 
+/* ////////////////// */
 /* /////////////// Utilities */
 
 .t--center {
