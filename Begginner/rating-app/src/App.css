@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.rating-app {
+  display: flex;
+  flex-direction: column;
+  max-width: 50rem;
+  width: 100%;
+
+  padding: 1rem;
+}
+
+.rating-app__title {
+  font-size: 3.2rem;
+}
+
+.rating-app__description {
+  font-size: 1.6rem;
+}
