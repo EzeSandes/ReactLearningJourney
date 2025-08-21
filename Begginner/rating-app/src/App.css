@@ -79,7 +79,7 @@ html {
   padding: 0.5rem 2rem;
   border: 1px solid #e85d04;
   text-align: center;
-  background-color: #e85b044b;
+  background-color: #e85b0417;
   border-radius: 2rem;
   font-size: 1.2rem;
 }
@@ -90,4 +90,5 @@ html {
 
 .rating-app__thank-you__text {
   font-size: 1.6rem;
+  text-align: center;
 }
