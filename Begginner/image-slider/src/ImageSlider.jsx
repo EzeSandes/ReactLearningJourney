@@ -1,8 +1,6 @@
 import React from 'react';
 
-function ImageSlider({ images, currIdx, onPrevSlide, onNextSlide }) {
-  let currBackgColor = '#000';
-
+function ImageSlider({ images, currIdx, onPrevSlide, onNextSlide, onSetIdx }) {
   return (
     <div className='slider'>
       <button
@@ -17,12 +15,22 @@ function ImageSlider({ images, currIdx, onPrevSlide, onNextSlide }) {
       >
         &rarr;
       </button>
+      <div className='slider__controls'>
+        {images.map((_, idx) => (
+          <button
+            className={`slider__controls__item ${
+              currIdx === idx ? 'slider__controls__item--active' : ''
+            }`}
+            key={idx + 999}
+            onClick={() => onSetIdx(idx)}
+          ></button>
+        ))}
+      </div>
       <div
         className='slider__container'
-        // Negative value to trasnlate the element to left.
+        // Negative value to translate the element to left.
         style={{
           transform: `translateX(-${currIdx * 100}%)`,
-          backgroundColor: currBackgColor,
         }}
       >
         {images.map((image, idx) => (

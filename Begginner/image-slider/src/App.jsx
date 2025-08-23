@@ -39,8 +39,13 @@ function App() {
   function handleNextSlide() {
     setCurrentIndex(prevIdx => (prevIdx + 1) % images.length);
   }
+
   function handlePrevSlide() {
     setCurrentIndex(prevIdx => (prevIdx - 1 + images.length) % images.length);
+  }
+
+  function handleSetIdx(idx) {
+    setCurrentIndex(idx);
   }
 
   return (
@@ -51,6 +56,7 @@ function App() {
         currIdx={currentIndex}
         onPrevSlide={handlePrevSlide}
         onNextSlide={handleNextSlide}
+        onSetIdx={handleSetIdx}
       />
     </div>
   );
