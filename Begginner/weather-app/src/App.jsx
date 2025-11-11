@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import Form from './components/Form/Form';
@@ -8,6 +8,7 @@ import Spinner from './components/Spinner/Spinner';
 function App() {
   const [weather, setWeather] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
@@ -20,10 +21,9 @@ function App() {
       if (!weatherRes.ok) throw new Error('Weather not found');
       const weatherData = await weatherRes.json();
 
-      console.log(weatherData);
-
       return weatherData;
     } catch (error) {
+      setHasError(true);
       console.log(error);
     }
   }
@@ -31,10 +31,14 @@ function App() {
   async function handleOnSearch(city) {
     setSearchQuery(city);
     setIsLoading(true);
+    setHasError(false);
+
     try {
       const data = await fetchWeatherByCity(city);
       setWeather(data);
     } catch (error) {
+      setWeather(null);
+      setHasError(true);
       console.log(error);
     } finally {
       setIsLoading(false);
@@ -47,9 +51,10 @@ function App() {
       <Form onSearch={handleOnSearch} />
 
       <div className='app__content'>
-        {isLoading && <Spinner />}
-        {!isLoading && !weather && <span>Search a city!</span>}
-        {!isLoading && weather && <Card weather={weather} />}
+        {isLoading && !hasError && <Spinner />}
+        {!isLoading && !hasError && !weather && <span>Search a city!</span>}
+        {!isLoading && !hasError && weather && <Card weather={weather} />}
+        {hasError && <span>City not found</span>}
       </div>
     </div>
   );
