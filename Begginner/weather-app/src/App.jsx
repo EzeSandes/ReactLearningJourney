@@ -12,11 +12,11 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
-  const baseUrl = 'https://api.weatherapi.com/v1/current.json';
+  const BASE_URL = 'https://api.weatherapi.com/v1/current.json';
 
   async function fetchWeatherByCity(city) {
     try {
-      const weatherUrl = `${baseUrl}?key=${API_KEY}&q=${city}`;
+      const weatherUrl = `${BASE_URL}?key=${API_KEY}&q=${city}`;
       const weatherRes = await fetch(weatherUrl);
       if (!weatherRes.ok) throw new Error('Weather not found');
       const weatherData = await weatherRes.json();
