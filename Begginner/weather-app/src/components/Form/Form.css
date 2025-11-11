@@ -1,0 +1,44 @@
+:root {
+  --input--height: 3rem;
+  --input--color: #3b3b3b;
+  --input--background-color: #fff;
+}
+
+.form__input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: var(--input--background-color);
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.form__input-container__input {
+  width: 100%;
+  background-color: var(--input--background-color);
+  color: var(--input--color);
+  border: none;
+  font-size: 1.6rem;
+}
+
+.form__input-container__input::placeholder {
+  color: var(--input--color);
+}
+
+.form__input-container__input:active,
+.form__input-container__input:focus,
+.form__input-container__input:focus-visible {
+  border: none;
+  outline: none;
+}
+
+.form__input-container__button {
+  min-height: var(--input--height);
+  padding: 0.5rem 1.6rem;
+  font-size: var(--app--font--size);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
