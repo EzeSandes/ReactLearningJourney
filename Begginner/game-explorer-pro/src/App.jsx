@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import './App.css';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
-  return <div></div>;
+  return (
+    <>
+      <Navbar></Navbar>
+    </>
+  );
 }
 
 export default App;
